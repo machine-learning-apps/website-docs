@@ -32,6 +32,7 @@ plugins:
   - jekyll-feed
 
 color_scheme: "dark"
+remote_theme: pmarsceill/just-the-docs
 
 aux_links:
   "Back To MLOps Site":
