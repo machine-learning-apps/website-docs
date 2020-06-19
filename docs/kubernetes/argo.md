@@ -68,4 +68,4 @@ jobs:
 
 ## Running Argo On Self Hosted Runners
 
-You can skip the `.kubeconfig` if your Actions runner is running on a self-hosted runner on your Kubernetes cluster that has access to Argo.  See [these docs](http://mlops-github.com/docs/k8s-self-hosted-runner) for further instructions.
+You can skip the `.kubeconfig` if your Actions runner is running on a self-hosted runner on your Kubernetes cluster that has access to Argo.  See [these docs](http://docs.mlops-github.com/docs/k8s-self-hosted-runner) for further instructions.

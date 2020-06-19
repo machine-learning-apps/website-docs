@@ -21,7 +21,7 @@
 title: MLOps Docs
 description: "A collection of docs that are relevant to MLOps with GitHub."
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://docs.mlops-github.com/" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://docs.mlops-github.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: github
 github_username:  github
 
