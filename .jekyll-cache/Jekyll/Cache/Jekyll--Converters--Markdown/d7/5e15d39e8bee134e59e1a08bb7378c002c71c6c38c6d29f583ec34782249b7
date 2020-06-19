@@ -1,0 +1,28 @@
+I"	
+<h2 id="the-repo2docker-action">The <a href="https://github.com/machine-learning-apps/repo2docker-action">repo2docker Action</a></h2>
+
+<p><a href="https://repo2docker.readthedocs.io/">repo2docker</a> is a project that will automatically create a docker image of your GitHub repository based on configuration files found in the repository, with additional Jupyter or RStudio support (depending upon the configuration files found).</p>
+
+<p>This is extremely useful for serving Jupyter notebooks automatically from GitHub repos.</p>
+
+<p><a href="https://github.com/machine-learning-apps/repo2docker-action">The repo2docker action</a> packages this functionality in an easy-to-use interface that can be triggered in your GitHub workflows. For example, you can build a Jupyter-enabled Docker image of your repository like so:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Build Notebook Container</span>
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">]</span> <span class="c1"># You may want to trigger this Action on other things than a push.</span>
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">checkout files in repo</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@master</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">update jupyter dependencies with repo2docker</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">machine-learning-apps/repo2docker-action@master</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">DOCKER_USERNAME</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">DOCKER_PASSWORD</span><span class="pi">:</span> <span class="s">$</span>
+</code></pre></div></div>
+
+<p>Additionally, this action allows you to pre-cache images for your own <a href="https://binderhub.readthedocs.io/en/latest/zero-to-binderhub/setup-binderhub.html">BinderHub cluster</a>, or for <a href="https://mybinder.org/">mybinder.org</a>.</p>
+:ET

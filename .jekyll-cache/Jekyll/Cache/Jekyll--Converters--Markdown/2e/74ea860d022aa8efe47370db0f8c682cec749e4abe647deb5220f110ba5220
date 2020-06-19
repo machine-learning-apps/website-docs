@@ -1,0 +1,19 @@
+I"ç<p>Resources for MLOps on Kubernetes with GitHub.  This is useful if you need to access broader infrastructure resources in your machine learning workflows.  For example:</p>
+<ul>
+  <li>Deploying and serving models, including a <a href="https://en.wikipedia.org/wiki/Service_mesh">service mesh</a></li>
+  <li>Deploying and serving arbitrary applications, such as Jupyter Notebooks or documentation sites.</li>
+  <li>Accessing other resources that are visible from your internal k8s cluster, such as:
+    <ul>
+      <li>Databases, i.e. Presto, Hive</li>
+      <li>Storage, i.e. HDFS</li>
+      <li>Distributed data processing, such as Dask or Spark</li>
+      <li>Specialized computing such as GPUs.</li>
+      <li>Integration with experiment tracking systems.</li>
+    </ul>
+  </li>
+  <li>Access to <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/">secrets</a>.</li>
+  <li>Native resource management and kubernetes for scalability and resiliance.</li>
+  <li>Interoperability with machine learning or data pipelines, such as <a href="https://argoproj.github.io/">Argo</a>, <a href="https://mlflow.org/">MLFlow</a>, <a href="https://www.prefect.io/">Prefect</a>, etc.</li>
+  <li>â€¦ and much more.</li>
+</ul>
+:ET

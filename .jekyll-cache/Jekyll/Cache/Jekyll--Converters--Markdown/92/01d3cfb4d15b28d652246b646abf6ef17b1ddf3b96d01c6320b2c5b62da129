@@ -1,0 +1,67 @@
+I"N<h2 id="deploy-machine-learning-workflows-with-argo">Deploy Machine Learning Workflows With Argo</h2>
+
+<p>What are Argo Workflows?</p>
+
+<p>From <a href="https://argoproj.github.io/docs/argo/readme.html">the docs</a>:</p>
+
+<ul>
+  <li>
+    <p>Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. Argo Workflows is implemented as a Kubernetes CRD (Custom Resource Definition).</p>
+  </li>
+  <li>Define workflows where each step in the workflow is a container.
+Model multi-step workflows as a sequence of tasks or capture the dependencies between tasks using a graph (DAG).</li>
+  <li>Easily run compute intensive jobs for machine learning or data processing in a fraction of the time using Argo Workflows on Kubernetes.</li>
+  <li>Run CI/CD pipelines natively on Kubernetes without configuring complex software development products.</li>
+</ul>
+
+<h2 id="the-argo-github-action">The <a href="https://github.com/machine-learning-apps/actions-argo">Argo GitHub Action</a></h2>
+
+<p>See <a href="https://github.com/machine-learning-apps/actions-argo">this repo</a> for full context.</p>
+
+<h3 id="a-hello-world-workflow">A Hello-World Workflow</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">ML Workflows Via Actions</span>
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">]</span>
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+
+    <span class="c1"># This copies the files in this repo, particulary the yaml workflow spec needed for Argo.</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Step One - checkout files in repo</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@master</span>
+
+    <span class="c1"># Get credentials (the kubeconfig file) the k8 cluster. Copies kubeconfig into /github/workspace/.kube/config</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Step Two - Get kubeconfig file from GKE</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">machine-learning-apps/gke-kubeconfig@master</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">application_credentials</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">project_id</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">location_zone</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">cluster_name</span><span class="pi">:</span> <span class="s">$</span>
+
+      <span class="c1">###################################################</span>
+      <span class="c1"># This is the action that submits the Argo Workflow </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Step Three - Submit Argo Workflow from the examples/ folder in this repo</span>
+      <span class="na">id</span><span class="pi">:</span> <span class="s">argo</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">machine-learning-apps/actions-argo@master</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">argo_url</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="c1"># below is a reference to a YAML file in this repo that defines the workflow.</span>
+        <span class="na">workflow_yaml_path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">examples/coinflip.yaml"</span>
+        <span class="na">parameter_file_path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">examples/arguments-parameters.yaml"</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="c1"># KUBECONFIG tells kubectl where it can find your authentication information.  A config file was saved to this path in Step Two.</span>
+        <span class="na">KUBECONFIG</span><span class="pi">:</span> <span class="s1">'</span><span class="s">/github/workspace/.kube/config'</span>
+
+      <span class="c1"># This step displays the Argo URL, and illustrates how you can use the output of the previous Action.</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">test argo outputs</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="s">echo "Argo URL $WORKFLOW_URL"</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">WORKFLOW_URL</span><span class="pi">:</span> <span class="s">$</span>
+</code></pre></div></div>
+
+<h2 id="running-argo-on-self-hosted-runners">Running Argo On Self Hosted Runners</h2>
+
+<p>You can skip the <code class="highlighter-rouge">.kubeconfig</code> if your Actions runner is running on a self-hosted runner on your Kubernetes cluster that has access to Argo.  See <a href="http://mlops-github.com/docs/k8s-self-hosted-runner">these docs</a> for further instructions.</p>
+:ET

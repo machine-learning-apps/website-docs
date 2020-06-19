@@ -1,0 +1,13 @@
+I"Â<h2 id="create-a-self-hosted-actions-runner-on-your-kubernetes-cluster-with-3-commands">Create A Self-Hosted Actions Runner On Your Kubernetes Cluster With 3 Commands</h2>
+
+<h2 id="motivation">Motivation</h2>
+
+<p><a href="https://github.com/features/actions">GitHub Actions</a> allow you to use <a href="https://help.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners">self hosted runners</a>.  From the docs:</p>
+
+<blockquote>
+  <p>Self-hosted runners offer more control of hardware, operating system, and software tools than GitHub-hosted runners provide. With self-hosted runners, you can choose to create a custom hardware configuration with more processing power or memory to run larger jobs, install software available on your local network, and choose an operating system not offered by GitHub-hosted runners. Self-hosted runners can be physical, virtual, in a container, on-premises, or in a cloud.</p>
+</blockquote>
+
+<p><a href="https://github.com/machine-learning-apps/self-hosted-k8s-runner">This repository</a> shows <strong>how to run a self hosted runner in a Kubernetes cluster</strong>, which is useful if your Actions runner needs to create resources or update deployments.</p>
+
+:ET

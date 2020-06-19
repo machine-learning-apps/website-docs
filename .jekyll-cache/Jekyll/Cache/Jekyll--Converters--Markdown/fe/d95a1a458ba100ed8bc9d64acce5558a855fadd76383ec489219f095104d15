@@ -1,0 +1,16 @@
+I"�<h2 id="what-is-mlops">What is MLOps?</h2>
+
+<p>From <a href="https://en.wikipedia.org/wiki/MLOps">Wikipedia</a>:</p>
+
+<blockquote>
+  <p>MLOps (a compound of “machine learning” and “operations”) is a practice for collaboration and communication between data scientists and operations professionals to help manage production ML (or deep learning) lifecycle.[1] Similar to the DevOps or DataOps approaches, MLOps looks to increase automation and improve the quality of production ML while also focusing on business and regulatory requirements. While MLOps also started as a set of best practices, it is slowly evolving into an independent approach to ML lifecycle management. MLOps applies to the entire lifecycle - from integrating with model generation (software development lifecycle, continuous integration/continuous delivery), orchestration, and deployment, to health, diagnostics, governance, and business metrics.</p>
+</blockquote>
+
+<h2 id="how-can-github-help-with-mlops">How Can GitHub Help With MLOps?</h2>
+
+<p>There are a series of new and emerging features that can aid with MLOps.  Some feautres that are relevant incldue <a href="https://github.com/features/actions">Actions</a> and <a href="https://github.com/features/codespaces">CodeSpaces</a>.</p>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>Contribution to this site and docs are welcome.  You can make pull requests or open issues <a href="https://github.com/machine-learning-apps/website-docs">on this GitHub repo</a>.  If you are unsure on whether or not your content is appropriate for this site, please <a href="https://github.com/machine-learning-apps/website-docs/issues/new/choose">open an issue</a>.</p>
+:ET

@@ -1,0 +1,92 @@
+I"“<h2 id="refresh-jupyter-notebooks-with-papermill">Refresh Jupyter Notebooks With <a href="https://github.com/nteract/papermill">Papermill</a></h2>
+
+<p><a href="https://github.com/nteract/papermill">papermill</a> is a great project for running notebooks programatically.  You can pass parameters to notebooks, use different kernels, etc.</p>
+
+<h3 id="example-refresh-notebooks-every-6-hours">Example: refresh notebooks every 6 hours</h3>
+
+<p>Put a shell script at the location<code class="highlighter-rouge">_action_files/run_notebooks.sh</code> with the following contents:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c">#!/bin/sh</span>
+<span class="nb">set</span> <span class="nt">-e</span>
+<span class="nb">cd</span> <span class="si">$(</span><span class="nb">dirname</span> <span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span><span class="si">)</span>/..
+<span class="nb">cd </span>_notebooks/
+
+<span class="nv">ERRORS</span><span class="o">=</span><span class="s2">""</span>
+
+<span class="c"># Loop through all notebooks and run them with papermill</span>
+<span class="k">for </span>file <span class="k">in</span> <span class="k">*</span>.ipynb
+<span class="k">do
+    if </span>papermill <span class="nt">--kernel</span> python3 <span class="s2">"</span><span class="k">${</span><span class="nv">file</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">file</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"Sucessfully refreshed </span><span class="k">${</span><span class="nv">file</span><span class="k">}</span><span class="se">\n\n\n\n</span><span class="s2">"</span>
+    <span class="k">else
+        </span><span class="nb">echo</span> <span class="s2">"ERROR Refreshing </span><span class="k">${</span><span class="nv">file</span><span class="k">}</span><span class="s2">"</span>
+        <span class="nv">ERRORS</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">ERRORS</span><span class="k">}</span><span class="s2">, </span><span class="k">${</span><span class="nv">file</span><span class="k">}</span><span class="s2">"</span>
+    <span class="k">fi
+done</span>
+
+<span class="c"># Emit Errors If Exists So Downstream Task Can Open An Issue</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$ERRORS</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"::set-output name=error_bool::false"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"These files failed to update properly: </span><span class="k">${</span><span class="nv">ERRORS</span><span class="k">}</span><span class="s2">"</span>
+    <span class="nb">echo</span> <span class="s2">"::set-output name=error_bool::true"</span>
+    <span class="nb">echo</span> <span class="s2">"::set-output name=error_str::</span><span class="k">${</span><span class="nv">ERRORS</span><span class="k">}</span><span class="s2">"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>In the location <code class="highlighter-rouge">.github/workflows/update-nb.yaml</code> define an Actions workflow with the following contents</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Update Notebooks And Refresh Page</span>
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">schedule</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">cron</span><span class="pi">:</span>  <span class="s1">'</span><span class="s">0</span><span class="nv"> </span><span class="s">*/6</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*'</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">update-notebooks</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+  
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Copy Repository Contents</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up Python</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/setup-python@v1</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">python-version</span><span class="pi">:</span> <span class="m">3.6</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">install dependencies</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">pip3 install -r ./_notebooks/requirements.txt</span>
+        <span class="s">python3 -m ipykernel install --user --name python3</span>
+        <span class="s">sudo chmod -R 777 .</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">update notebooks</span>
+      <span class="na">id</span><span class="pi">:</span> <span class="s">update_nb</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">./_action_files/run_notebooks.sh</span>
+        
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Create an issue if notebook update failure occurs</span>
+      <span class="na">if</span><span class="pi">:</span> <span class="s">steps.update_nb.outputs.error_bool == 'true'</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/github-script@0.6.0</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">github-token</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">var err = process.env.ERROR_STRING;</span>
+          <span class="s">var run_id = process.env.RUN_ID;</span>
+          <span class="s">github.issues.create({</span>
+            <span class="s">owner: context.repo.owner,</span>
+            <span class="s">repo: context.repo.repo,</span>
+            <span class="s">title: "Error updating notebooks",</span>
+            <span class="s">body: `These are the notebooks that failed to update properly: \n${err}\n\n See run [${run_id}](https://github.com/github/covid19-dashboard/actions/runs/${run_id}) for more details.`</span>
+          <span class="s">})</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">ERROR_STRING</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">RUN_ID</span><span class="pi">:</span> <span class="s">$</span>
+
+</code></pre></div></div>
+
+<p>This example is based on <a href="https://covid19dashboards.com/">covid19dashboards.com</a>, which uses <a href="https://github.com/fastai/fastpages">fastpages</a> and papermill to refresh notebooks and serve them as dasbhoards.  You can see browse the <a href="https://github.com/github/covid19-dashboard/tree/master/.github/workflows">workflow files</a> of this project to see how papermill is used.</p>
+:ET

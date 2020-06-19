@@ -1,0 +1,32 @@
+I"»<h2 id="fastaifastpages--blogging-with-jupyter-notebooks"><a href="https://github.com/fastai/fastpages">fastai/fastpages</a>:  Blogging with Jupyter Notebooks</h2>
+
+<p><img src="https://raw.githubusercontent.com/fastai/fastpages/master/images/diagram.png" /></p>
+
+<p>From the <a href="https://github.com/fastai/fastpages">project page</a>:</p>
+
+<p><code class="highlighter-rouge">fastpages</code> uses <a href="https://github.com/features/actions">GitHub Actions</a> to simplify the process of creating <a href="https://jekyllrb.com/">Jekyll blog posts</a> on <a href="https://pages.github.com/">GitHub Pages</a> from a variety of input formats.</p>
+
+<h3 id="fastpages-provides-the-following-features"><code class="highlighter-rouge">fastpages</code> provides the following features:</h3>
+
+<ul>
+  <li>Create posts containing code, outputs of code (which can be interactive), formatted text, etc directly from <a href="https://jupyter.org/">Jupyter Notebooks</a>; Notebook posts support features such as:
+    <ul>
+      <li>Interactive visualizations made with <a href="https://altair-viz.github.io/">Altair</a> remain interactive.</li>
+      <li>Hide or show cell input and output.</li>
+      <li>Collapsable code cells that are either open or closed by default.</li>
+      <li>Define the Title, Summary and other metadata via a special markdown cells</li>
+      <li>Ability to add links to <a href="https://colab.research.google.com/">Colab</a> and GitHub automatically.</li>
+    </ul>
+  </li>
+  <li>Support for comments, supported natively through GitHub Issues.</li>
+  <li>Built-in search.</li>
+  <li>Support for customizing the styling of your site.</li>
+  <li>Embed Twitter cards and YouTube videos.</li>
+  <li>Categorization of blog posts by user-supplied tags for discoverability.</li>
+  <li>Create and edit <a href="https://guides.github.com/features/mastering-markdown/">Markdown</a> posts.</li>
+  <li>Create posts, including formatting and images, directly from Microsoft Word documents.</li>
+  <li>Write posts on your local machine and <a href="#running-the-blog-on-your-local-machine">preview them with live reload</a>.</li>
+</ul>
+
+<p>See <a href="https://github.com/fastai/fastpages">the project</a> for more details.</p>
+:ET
