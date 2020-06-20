@@ -1,6 +1,8 @@
 # MLOps Docs
 
-[docsite]: https://mlops-github.com/docs/
+## https://docs.mlops-github.com
+
+[docsite]: https://docs.mlops-github.com
 
 
 This directory contains assets for the [MLOps documentation site][docsite].
