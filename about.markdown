@@ -7,7 +7,7 @@ nav_order: 100
 
 # About
 
-These docs are maintained by the [this team](https://mlops-github.com/team).
+These docs are maintained by [this team](https://mlops-github.com/team).
 
 # Contributing
 
