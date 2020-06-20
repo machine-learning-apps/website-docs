@@ -38,6 +38,10 @@ aux_links:
   "Back To MLOps Site":
     - "//mlops-github.com"
 
+
+ga_tracking: UA-57531313-7
+
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
