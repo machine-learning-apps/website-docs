@@ -5,10 +5,12 @@ order_n: 3
 has_children: true
 ---
 
-Resources for MLOps on Kubernetes with GitHub.  This is useful if you need to access broader infrastructure resources in your machine learning workflows.  For example:
-   - Deploying and serving models, including a [service mesh](https://en.wikipedia.org/wiki/Service_mesh)
+To get started using kubernetes, we will defer to the [kubernetes documentation](https://kubernetes.io/docs/tasks/).
+
+Kubernetes can be useful in your ML workflows if you need access to other infrastructure resources.  For example:
+   - Deploying and serving models with a [service mesh](https://en.wikipedia.org/wiki/Service_mesh)
    - Deploying and serving arbitrary applications, such as Jupyter Notebooks or documentation sites.
-   - Accessing other resources that are visible from your internal k8s cluster, such as:
+   - Accessing resources that are visible from your internal k8s cluster, such as:
       - Databases, i.e. Presto, Hive
       - Storage, i.e. HDFS
       - Distributed data processing, such as Dask or Spark
