@@ -5,7 +5,7 @@ order_n: 3
 has_children: true
 ---
 
-To get started using kubernetes, we will defer to the [kubernetes documentation](https://kubernetes.io/docs/tasks/).
+To get started using kubernetes, we defer to the [kubernetes documentation](https://kubernetes.io/docs/tasks/).
 
 Kubernetes can be useful in your ML workflows if you need access to other infrastructure resources.  For example:
    - Deploying and serving models with a [service mesh](https://en.wikipedia.org/wiki/Service_mesh)
