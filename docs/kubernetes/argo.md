@@ -9,7 +9,7 @@ parent: Kubernetes
 
 What are Argo Workflows?  
 
-From [the docs](https://argoproj.github.io/docs/argo/readme.html):
+From [the docs](https://argoproj.github.io/argo-workflows/):
 
 - Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. Argo Workflows is implemented as a Kubernetes CRD (Custom Resource Definition).
 
@@ -68,4 +68,4 @@ jobs:
 
 ## Running Argo On Self Hosted Runners
 
-You can skip the `.kubeconfig` if your Actions runner is running on a self-hosted runner on your Kubernetes cluster that has access to Argo.  See [these docs](http://docs.mlops-github.com/docs/k8s-self-hosted-runner) for further instructions.
+You can skip the `.kubeconfig` if your Actions runner is running on a self-hosted runner on your Kubernetes cluster that has access to Argo.  See [these docs](https://docs.mlops-github.com/docs/kubernetes/self-hosted-runners.html) for further instructions.
